@@ -1,4 +1,4 @@
-from webshop.bot import bot_instance
+from .bot import bot_instance
 from flask import Flask, abort
 from flask import request
 from .bot.config import WEBHOOK_PREFIX, WEBHOOK_URL
