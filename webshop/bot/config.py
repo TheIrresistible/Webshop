@@ -1,0 +1,5 @@
+TOKEN = '1387968128:AAHS5kR9GInr8N1Tu3kVedx4vzFghbPFisI'
+DEFAULT = 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'
+GLOBAL_IP = '34.65.159.29'
+WEBHOOK_PREFIX = '/tg'
+WEBHOOK_URL = f'https://{GLOBAL_IP}{WEBHOOK_PREFIX}'
