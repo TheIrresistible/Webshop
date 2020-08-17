@@ -1,4 +1,6 @@
-from .bot import bot_instance
+import time
+
+from webshop.bot import bot_instance
 from flask import Flask, abort
 from flask import request
 from .bot.config import WEBHOOK_PREFIX, WEBHOOK_URL
@@ -21,7 +23,11 @@ def webhook():
 
 if __name__ == '__main__':
 
+    bot_instance.remove_webhook()
+    time.sleep(1)
+
     bot_instance.set_webhook(
         url=WEBHOOK_URL,
         certificate=open('webhook_cert.pem', 'r')
     )
+    app.run(debug=True)
