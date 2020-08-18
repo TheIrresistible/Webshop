@@ -1,4 +1,3 @@
-import telebot
 from telebot import types
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP
