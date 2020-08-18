@@ -33,14 +33,9 @@ def seed_categories():
     Category.objects.create(title='Ноутбуки')
     Category.objects.create(title='Видеокарты')
     Category.objects.create(title='Моноблоки')
-    Category.objects.create(title='Смартфоны')
-    Category.objects.create(title='Аксесуары')
-    Category.objects.create(title='Наушники')
     for i in Category.objects(title='Компьютеры'):
-        i.add_subcategory(Category.objects(title='Ноутбуки'))
-        i.add_subcategory(Category.objects(title='Видеокарты'))
-        i.add_subcategory(Category.objects(title='Моноблоки'))
-    for i in Category.objects(title='Смартфоны'):
-        i.add_subcategory(Category.objects(title='Смартфоны'))
-        i.add_subcategory(Category.objects(title='Аксесуары'))
-        i.add_subcategory(Category.objects(title='Наушники'))
+        for j in i:
+            j.add_subcategory(Category.objects(title='Ноутбуки'))
+            j.add_subcategory(Category.objects(title='Видеокарты'))
+            j.add_subcategory(Category.objects(title='Моноблоки'))
+
