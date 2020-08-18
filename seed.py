@@ -1,3 +1,3 @@
-from webshop.bot.db.seeder import seed_texts
+from webshop.bot.db.seeder import seed_news
 
-seed_texts()
+seed_news()

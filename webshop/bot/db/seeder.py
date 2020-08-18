@@ -1,4 +1,4 @@
-from .models import Text
+from .models import Text, News
 
 
 def seed_texts():
@@ -21,4 +21,9 @@ def seed_texts():
     Text.objects.create(**greetings)
     Text.objects.create(**discount)
     Text.objects.create(**categories)
-    
+
+
+def seed_news():
+    News.objects.create(title='Скоро открытие', body='Открываеться новый магазин...')
+    News.objects.create(title='Скидки на этой неделе', body='Смотрите вкладку "Товары со скидкой"')
+    News.objects.create(title='Осторожно', body='В сети появились мошенники...')

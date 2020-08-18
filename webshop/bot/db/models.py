@@ -99,7 +99,6 @@ class News(me.Document):
 
 if __name__ == '__main__':
     pass
-    #News.objects.create(title='Скидки на этой неделе', body='Смотрите вкладку "Товары со скидкой"')
     #for i in Product.objects():
         #image = Image.open('charlie-ellis-planet.jpg')
        # i.image = image
