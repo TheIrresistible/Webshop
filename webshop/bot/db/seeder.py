@@ -30,14 +30,17 @@ def seed_news():
 
 
 def seed_categories():
-    Category.objects.create(title='Компьютеры')
+    Category.objects.create(title='Ноутбуки')
+    Category.objects.create(title='Видеокарты')
+    Category.objects.create(title='Моноблоки')
     Category.objects.create(title='Смартфоны')
-    Category.objects.create(title='ТВ')
+    Category.objects.create(title='Аксесуары')
+    Category.objects.create(title='Наушники')
     for i in Category.objects(title='Компьютеры'):
-        i.add_subcategory('Ноутбуки')
-        i.add_subcategory('Видеокарты')
-        i.add_subcategory('Моноблоки')
+        i.add_subcategory(Category.objects(title='Ноутбуки'))
+        i.add_subcategory(Category.objects(title='Видеокарты'))
+        i.add_subcategory(Category.objects(title='Моноблоки'))
     for i in Category.objects(title='Смартфоны'):
-        i.add_subcategory('Смартфоны')
-        i.add_subcategory('Аксесуары')
-        i.add_subcategory('Наушники')
+        i.add_subcategory(Category.objects(title='Смартфоны'))
+        i.add_subcategory(Category.objects(title='Аксесуары'))
+        i.add_subcategory(Category.objects(title='Наушники'))
