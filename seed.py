@@ -1,3 +1,3 @@
-from webshop.bot.db.seeder import seed_news
+from webshop.bot.db.seeder import seed_categories
 
-seed_news()
+seed_categories()
