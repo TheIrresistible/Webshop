@@ -18,6 +18,7 @@ def seed_texts():
         'body': 'Выберите категорию:'
     }
 
-    #Text.objects.create(**greetings)
-    #Text.objects.create(**discount)
-    #Text.objects.create(**categories)
+    Text.objects.create(**greetings)
+    Text.objects.create(**discount)
+    Text.objects.create(**categories)
+    
