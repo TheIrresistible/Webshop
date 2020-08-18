@@ -30,7 +30,10 @@ def seed_news():
 
 
 def seed_categories():
+    Category.objects(title='Смартфоны').delete()
     Category.objects.create(title='Смартфоны')
     sub = Category.objects.get(title='Аксесуары')
+    sub2 = Category.objects.get(title='Наушники')
     for c in Category.objects(title='Смартфоны'):
         c.add_subcategory(sub)
+        c.add_subcategory(sub2)
