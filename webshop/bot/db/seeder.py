@@ -30,12 +30,9 @@ def seed_news():
 
 
 def seed_categories():
-    Category.objects.create(title='Ноутбуки')
-    Category.objects.create(title='Видеокарты')
-    Category.objects.create(title='Моноблоки')
-    for i in Category.objects(title='Компьютеры'):
-        for j in i:
-            j.add_subcategory(Category.objects(title='Ноутбуки'))
-            j.add_subcategory(Category.objects(title='Видеокарты'))
-            j.add_subcategory(Category.objects(title='Моноблоки'))
+    Category.objects(title='Смартфоны').delete()
+    Category.objects(title='Ноутбуки').delete()
+    Category.objects(title='Видеокарты').delete()
+    Category.objects(title='Моноблоки').delete()
+
 
