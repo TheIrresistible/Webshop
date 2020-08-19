@@ -72,16 +72,17 @@ def seed_products():
         for p in Product.objects(title='IPhone'):
             p.category = c
             p.discount = 10
+            p.save()
 
     for c in Category.objects(title='Компьютеры'):
         for p in Product.objects(title='Lenovo'):
             p.category = c
             p.discount = 10
+            p.save()
 
     for c in Category.objects(title='Наушники'):
         for p in Product.objects(title='Galaxy Buds'):
             p.category = c
             p.discount = 10
-            print(p.category)
-            print(p.discount)
+            p.save()
 
