@@ -28,17 +28,15 @@ class WebShopBot(TeleBot):
                                                                                                    **kwargs))
 
     @staticmethod
-    def generate_products_kb(products: List[Product], **kwargs):
+    def generate_products_kb(pid, **kwargs):
         kb = types.InlineKeyboardMarkup(**kwargs)
-        buttons = [types.InlineKeyboardButton(
-            text=f'{ADD_TO_CART}',
-            callback_data=f'{PRODUCT_LOOKUP}{SEPARATOR}{p.id}'
-        ) for p in products]
-        kb.add(*buttons)
+        button = types.InlineKeyboardButton(text=f'{ADD_TO_CART}',
+                                            callback_data=f'{PRODUCT_LOOKUP}{SEPARATOR}{pid}')
+        kb.add(button)
 
         return kb
 
     def generate_and_send_products_kb(self, chat_id: int, photo, products: List[Product], **kwargs):
         for p in products:
             self.send_photo(chat_id, photo, f'{p.title}\nЦена: {p.actual_price}',
-                            reply_markup=self.generate_products_kb(products, **kwargs))
+                            reply_markup=self.generate_products_kb(p.id, **kwargs))
