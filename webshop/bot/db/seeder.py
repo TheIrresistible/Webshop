@@ -1,4 +1,4 @@
-from .models import Text, News, Category
+from .models import Text, News, Category, Product
 
 
 def seed_texts():
@@ -30,10 +30,47 @@ def seed_news():
 
 
 def seed_categories():
-    Category.objects(title='Смартфоны').delete()
+    Category.objects.create(title='Компьютеры')
     Category.objects.create(title='Смартфоны')
     sub = Category.objects.get(title='Аксесуары')
     sub2 = Category.objects.get(title='Наушники')
     for c in Category.objects(title='Смартфоны'):
         c.add_subcategory(sub)
         c.add_subcategory(sub2)
+
+
+def seed_products():
+
+    product1 = {
+        'title': 'IPhone',
+        'in_stock': 'yes',
+        'is_available': True,
+        'price': 2000,
+    }
+
+    product2 = {
+        'title': 'Lenovo',
+        'in_stock': 'yes',
+        'is_available': True,
+        'price': 1500,
+    }
+
+    product3 = {
+        'title': 'Galaxy Buds',
+        'in_stock': 'yes',
+        'is_available': True,
+        'price': 1000,
+    }
+
+    Product.objects.create(**product1)
+    Product.objects.create(**product2)
+    Product.objects.create(**product3)
+
+    for p in Product.objects(title='IPhone'):
+        p.category = Category.objects(title='Смартфоны')
+
+    for p in Product.objects(title='Lenovo'):
+        p.category = Category.objects(title='Компьютеры')
+
+    for p in Product.objects(title='Galaxy Buds'):
+        p.category = Category.objects(title='Наушники')
