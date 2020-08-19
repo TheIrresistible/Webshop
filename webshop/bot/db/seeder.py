@@ -41,6 +41,7 @@ def seed_categories():
 
 def seed_products():
 
+    '''
     product1 = {
         'title': 'IPhone',
         'in_stock': 'yes',
@@ -65,12 +66,19 @@ def seed_products():
     Product.objects.create(**product1)
     Product.objects.create(**product2)
     Product.objects.create(**product3)
+    '''
 
-    for p in Product.objects(title='IPhone'):
-        p.category = Category.objects(title='Смартфоны')
+    for c in Category.objects(title='Аксесуары'):
+        for p in Product.objects(title='IPhone'):
+            p.category = c
+            print(p.category)
 
-    for p in Product.objects(title='Lenovo'):
-        p.category = Category.objects(title='Компьютеры')
+    for c in Category.objects(title='Компьютеры'):
+        for p in Product.objects(title='Lenovo'):
+            p.category = c
+            print(p.category)
 
-    for p in Product.objects(title='Galaxy Buds'):
-        p.category = Category.objects(title='Наушники')
+    for c in Category.objects(title='Наушники'):
+        for p in Product.objects(title='Galaxy Buds'):
+            p.category = c
+            print(p.category)
