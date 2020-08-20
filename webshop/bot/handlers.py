@@ -105,11 +105,11 @@ def show_cart(message):
     kb.add(button)
     for u in User.objects(user_id=message.from_user.id):
         for c in Cart.objects(customer=u):
-            list_of_products.append(f'{c.products.id}')
+            list_of_products.append(c.products)
             print(list_of_products)
 
     for product in list_of_products:
-        for p in Product.objects(id=product):
+        for p in Product.objects(id=product.id):
             bot_instance.send_message(message.chat.id, f'{p.title}: {p.actual_price}')
             summa = summa + p.actual_price
 
