@@ -46,17 +46,16 @@ def add_product_to_cart(query):
                             language_code=query.from_user.language_code,
                             phone_number=query.message.contact)
 
-    cart_list = []   
+    cart_list = []
     for c in Cart.objects():
         cart_list.append(c.customer)
 
-    print(cart_list)
+    for u in User.objects(user_id=query.from_user.id):
+        if u.id not in cart_list:
+            Cart.objects.create(customer=u.id)
 
-
-
-
-
-
+        for c in Cart.objects(customer=u.id):
+            c.add_to_cart(product_id)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
@@ -93,3 +92,8 @@ def show_latest_news(message):
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-1][0]}\n{list_of_obj[-1][1]}')
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-2][0]}\n{list_of_obj[-2][1]}')
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-3][0]}\n{list_of_obj[-3][1]}')
+
+
+@bot_instance.message_handler(content_types=['text'], func=lambda m: m.text == START_KB['cart'])
+def show_cart(message):
+    print(message)
