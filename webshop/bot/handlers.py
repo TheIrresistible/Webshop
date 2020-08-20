@@ -52,10 +52,11 @@ def add_product_to_cart(query):
 
     for u in User.objects(user_id=query.from_user.id):
         if u.id not in cart_list:
-            Cart.objects.create(customer=u.id)
+            Cart.objects.create(customer=u)
 
-        for c in Cart.objects(customer=u.id):
-            c.add_to_cart(product_id)
+        for c in Cart.objects(customer=u):
+            for p in Product.objects(id=product_id):
+                c.add_to_cart(p)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
