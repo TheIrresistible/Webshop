@@ -1,7 +1,7 @@
 from telebot import types
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP
-from .keyboards import START_KB, ADD_TO_CART
+from .keyboards import START_KB, ADD_TO_CART, FINISH
 from .db.models import Category, Product, Text, News, Cart, User
 from .service import WebShopBot
 
@@ -96,4 +96,19 @@ def show_latest_news(message):
 
 @bot_instance.message_handler(content_types=['text'], func=lambda m: m.text == START_KB['cart'])
 def show_cart(message):
-    print(message)
+    list_of_products = []
+    summa = 0
+    kb = types.InlineKeyboardMarkup()
+    button = types.InlineKeyboardButton(text=f'{FINISH}',
+                                        callback_data=f'{message.from_user.id}')
+    kb.add(button)
+    for u in User.objects(user_id=message.from_user.id):
+        for c in Cart.objects(customer=u.id):
+            list_of_products.append(c.products)
+
+    for product in list_of_products:
+        for p in Product.objects(id=product):
+            bot_instance.send_message(message.chat.id, f'{p.title}: {p.actual_price}')
+            summa = summa + p.actual_price
+
+    bot_instance.send_message(message.chat.id, f'{summa}', reply_markup=kb)
