@@ -29,7 +29,7 @@ def get_products_or_subcategory(query):
 @bot_instance.callback_query_handler(func=lambda query: query.data.startswith(PRODUCT_LOOKUP))
 def add_product_to_cart(query):
     product_id = query.data.split(SEPARATOR)[1]
-    print(query)
+    print(query.from_user)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
