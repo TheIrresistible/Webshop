@@ -85,7 +85,7 @@ class Text(me.Document):
 class User(me.Document):
     user_id = me.IntField(required=True)
     first_name = me.StringField(required=True)
-    last_name = me.StringField(required=True)
+    last_name = me.StringField()
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()

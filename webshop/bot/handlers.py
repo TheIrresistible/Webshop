@@ -31,8 +31,22 @@ def add_product_to_cart(query):
     product_id = query.data.split(SEPARATOR)[1]
     id_list = []
     for u in User.objects():
-        id_list.append(u.id)
-        print(u)
+        id_list.append(u.user_id)
+
+    if query.from_user.id in id_list:
+        pass
+
+    else:
+        keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=True)
+        button_phone = types.KeyboardButton(text='Поделитесь вашим контактом', request_contact=True)
+        keyboard.add(button_phone)
+        bot_instance.send_message(query.message.chat.id, 'Для продолжения покупок поделитесь вашим контактом',
+                                  reply_markup=keyboard)
+        User.objects.create(user_id=query.from_user.id,
+                            first_name=query.from_user.first_name,
+                            username=query.from_user.username,
+                            language_code=query.from_user.language_code,
+                            phone_number=query.contact.phone_number)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
