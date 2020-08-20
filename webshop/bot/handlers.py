@@ -2,7 +2,7 @@ from telebot import types
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP
 from .keyboards import START_KB, ADD_TO_CART
-from .db.models import Category, Product, Text, News
+from .db.models import Category, Product, Text, News, Cart
 from .service import WebShopBot
 
 API_TOKEN = TOKEN
@@ -26,6 +26,12 @@ def get_products_or_subcategory(query):
             bot_instance.generate_and_send_products_kb(query.message.chat.id, DEFAULT, Product.objects(category=id_))
 
 
+@bot_instance.callback_query_handler(func=lambda query: query.data.startswith(PRODUCT_LOOKUP))
+def add_product_to_cart(query):
+    product_id = query.data.split(SEPARATOR)[1]
+    print(query)
+
+
 @bot_instance.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     chat_id = message.chat.id
@@ -34,7 +40,6 @@ def send_welcome(message):
     buttons = [types.KeyboardButton(button) for button in START_KB.values()]
     keyboard.add(*buttons)
     bot_instance.send_message(chat_id, txt, reply_markup=keyboard)
-    print(message)
 
 
 @bot_instance.message_handler(content_types=['text'], func=lambda m: m.text == START_KB['categories'])
@@ -61,4 +66,3 @@ def show_latest_news(message):
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-1][0]}\n{list_of_obj[-1][1]}')
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-2][0]}\n{list_of_obj[-2][1]}')
     bot_instance.send_message(message.chat.id, f'{list_of_obj[-3][0]}\n{list_of_obj[-3][1]}')
-

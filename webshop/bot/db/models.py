@@ -89,7 +89,7 @@ class User(me.Document):
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()
-    location = me.StringField()
+    order_history = me.StringField(min_length=4, max_length=4096)
 
 
 class News(me.Document):
@@ -97,8 +97,14 @@ class News(me.Document):
     body = me.StringField(min_length=8, max_length=2048, required=True)
 
 
+class Cart(me.Document):
+    customer = me.ReferenceField(User)
+    products = me.ListField(me.ReferenceField(Product))
+
+    def add_to_cart(self, product: 'Product'):
+        self.products.append(product)
+        self.save()
+
+
 if __name__ == '__main__':
     pass
-    #for i in Product.objects():
-        #image = Image.open('charlie-ellis-planet.jpg')
-       # i.image = image
