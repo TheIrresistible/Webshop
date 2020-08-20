@@ -33,10 +33,8 @@ def add_product_to_cart(query):
     for u in User.objects():
         id_list.append(u.user_id)
 
-    if query.from_user.id in id_list:
-        pass
+    if query.from_user.id not in id_list:
 
-    else:
         keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True, one_time_keyboard=True)
         button_phone = types.KeyboardButton(text='Поделитесь вашим контактом', request_contact=True)
         keyboard.add(button_phone)
@@ -47,6 +45,17 @@ def add_product_to_cart(query):
                             username=query.from_user.username,
                             language_code=query.from_user.language_code,
                             phone_number=query.message.contact)
+
+    cart_list = []   
+    for c in Cart.objects():
+        cart_list.append(c.customer)
+
+    print(cart_list)
+
+
+
+
+
 
 
 
