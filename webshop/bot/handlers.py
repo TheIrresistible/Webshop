@@ -46,9 +46,8 @@ def add_product_to_cart(query):
                             first_name=query.from_user.first_name,
                             username=query.from_user.username,
                             language_code=query.from_user.language_code,
-                            phone_number=query.contact.phone_number)
-        for u in User.objects():
-            print(u)
+                            phone_number=query.message.contact)
+
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
