@@ -1,3 +1,3 @@
-from webshop.bot.db.seeder import seed_products
+from webshop.bot.db.seeder import show
 
-seed_products()
+show()
