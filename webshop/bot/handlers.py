@@ -2,7 +2,7 @@ from telebot import types
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP
 from .keyboards import START_KB, ADD_TO_CART
-from .db.models import Category, Product, Text, News, Cart
+from .db.models import Category, Product, Text, News, Cart, User
 from .service import WebShopBot
 
 API_TOKEN = TOKEN
@@ -29,7 +29,10 @@ def get_products_or_subcategory(query):
 @bot_instance.callback_query_handler(func=lambda query: query.data.startswith(PRODUCT_LOOKUP))
 def add_product_to_cart(query):
     product_id = query.data.split(SEPARATOR)[1]
-    print(query.from_user)
+    id_list = []
+    for u in User.objects():
+        id_list.append(u.id)
+        print(u)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
