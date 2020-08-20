@@ -113,4 +113,4 @@ def show_cart(message):
             bot_instance.send_message(message.chat.id, f'{p.title}: {p.actual_price}')
             summa = summa + p.actual_price
 
-    bot_instance.send_message(message.chat.id, f'{summa}', reply_markup=kb)
+    bot_instance.send_message(message.chat.id, f'Общая сумма: {summa}', reply_markup=kb)
