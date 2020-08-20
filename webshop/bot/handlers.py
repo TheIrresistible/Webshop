@@ -51,7 +51,7 @@ def add_product_to_cart(query):
         cart_list.append(c.customer)
 
     for u in User.objects(user_id=query.from_user.id):
-        if u.id not in cart_list:
+        if u not in cart_list:
             Cart.objects.create(customer=u)
 
         for c in Cart.objects(customer=u):

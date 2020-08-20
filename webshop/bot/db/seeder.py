@@ -88,8 +88,5 @@ def seed_products():
 
 def show():
     for c in Cart.objects():
-        print(c)
-
-    for u in User.objects():
-        print(u)
+        c.delete()
 
