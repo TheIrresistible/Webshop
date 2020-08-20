@@ -1,7 +1,7 @@
 from telebot import types
 from .config import TOKEN, DEFAULT
-from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP
-from .keyboards import START_KB, ADD_TO_CART, FINISH
+from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP, FINISH_LOOKUP, DELETE_LOOKUP
+from .keyboards import START_KB, ADD_TO_CART, FINISH, DELETE
 from .db.models import Category, Product, Text, News, Cart, User
 from .service import WebShopBot
 
@@ -102,9 +102,14 @@ def show_cart(message):
     list_of_products = []
     summa = 0
     kb = types.InlineKeyboardMarkup()
-    button = types.InlineKeyboardButton(text=f'{FINISH}',
-                                        callback_data=f'{message.from_user.id}')
-    kb.add(button)
+    button1 = types.InlineKeyboardButton(text=f'{FINISH}',
+                                         callback_data=f'{FINISH_LOOKUP}{SEPARATOR}{message.from_user.id}')
+
+    button2 = types.InlineKeyboardButton(text=f'{DELETE}',
+                                         callback_data=f'{DELETE_LOOKUP}{SEPARATOR}{message.from_user.id}')
+    kb.add(button2)
+    kb.add(button1)
+
     for u in User.objects(user_id=message.from_user.id):
         for c in Cart.objects(customer=u):
             for product in c.products:
