@@ -104,8 +104,9 @@ def show_cart(message):
                                         callback_data=f'{message.from_user.id}')
     kb.add(button)
     for u in User.objects(user_id=message.from_user.id):
-        for c in Cart.objects(customer=u.id):
+        for c in Cart.objects(customer=u):
             list_of_products.append(c.products)
+            print(list_of_products)
 
     for product in list_of_products:
         for p in Product.objects(id=product):
