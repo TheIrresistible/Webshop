@@ -58,6 +58,8 @@ def add_product_to_cart(query):
             for p in Product.objects(id=product_id):
                 c.add_to_cart(p)
 
+    bot_instance.send_message(query.message.chat.id, 'Продукт добавлен в корзину.')
+
 
 @bot_instance.message_handler(commands=['help', 'start'])
 def send_welcome(message):
@@ -107,7 +109,6 @@ def show_cart(message):
         for c in Cart.objects(customer=u):
             for product in c.products:
                 list_of_products.append(product.id)
-            print(list_of_products)
 
     for product in list_of_products:
         for p in Product.objects(id=product):
