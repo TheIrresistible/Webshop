@@ -58,7 +58,17 @@ def add_product_to_cart(query):
             for p in Product.objects(id=product_id):
                 c.add_to_cart(p)
 
-    bot_instance.send_message(query.message.chat.id, 'Продукт добавлен в корзину.')
+    txt = Text.objects.get(title=Text.ADD).body
+    bot_instance.send_message(query.message.chat.id, txt)
+
+
+@bot_instance.callback_query_handler(func=lambda query: query.data.startswith(DELETE_LOOKUP))
+def clear_cart(query):
+    txt = Text.objects.get(title=Text.CLEAR).body
+    for user in User.objects(user_id=query.from_user.id):
+        for cart in Cart.objects(customer=user):
+            cart.delete()
+            bot_instance.send_message(query.message.chat.id, txt)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])

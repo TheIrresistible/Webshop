@@ -73,10 +73,14 @@ class Text(me.Document):
     GREETINGS = 'greetings'
     DISCOUNT = 'discount'
     CATEGORIES = 'categories'
+    CLEAR = 'clear'
+    ADD = 'add'
     TITLES_CONSTANTS = (
         (GREETINGS, 'greetings'),
         (DISCOUNT, 'discount'),
-        (CATEGORIES, 'categories')
+        (CATEGORIES, 'categories'),
+        (CLEAR, 'clear'),
+        (ADD, 'add')
     )
     title = me.StringField(required=True, choices=TITLES_CONSTANTS, unique=True)
     body = me.StringField(min_length=4, max_length=4096)

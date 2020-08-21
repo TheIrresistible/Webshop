@@ -18,9 +18,21 @@ def seed_texts():
         'body': 'Выберите категорию:'
     }
 
-    Text.objects.create(**greetings)
-    Text.objects.create(**discount)
-    Text.objects.create(**categories)
+    clear = {
+        'title': 'clear',
+        'body': 'Корзина очищена!'
+    }
+
+    add = {
+        'title': 'add',
+        'body': 'Продукт добавлен в корзину.'
+    }
+
+    #Text.objects.create(**greetings)
+    #Text.objects.create(**discount)
+    #Text.objects.create(**categories)
+    Text.objects.create(**clear)
+    Text.objects.create(**add)
 
 
 def seed_news():
@@ -86,7 +98,4 @@ def seed_products():
             p.discount = 10
             p.save()
 
-def show():
-    for c in Cart.objects():
-        c.delete()
 
