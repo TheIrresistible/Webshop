@@ -107,6 +107,6 @@ def seed_products():
 
 def show():
     for order in Order.objects():
-        print(order)
+        print(order.products)
 
 
