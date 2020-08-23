@@ -47,10 +47,10 @@ def add_product_to_cart(query):
                             phone_number=query.message.contact)
 
     cart_list = []
-    for c in Cart.objects():
-        cart_list.append(c.customer)
 
     for u in User.objects(user_id=query.from_user.id):
+        for c in Cart.objects(customer=u):
+            cart_list.append(c.customer)
         if u not in cart_list:
             Cart.objects.create(customer=u)
 
