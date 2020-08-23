@@ -75,15 +75,21 @@ class Text(me.Document):
     CATEGORIES = 'categories'
     CLEAR = 'clear'
     ADD = 'add'
+    FINISH = 'finish'
     TITLES_CONSTANTS = (
         (GREETINGS, 'greetings'),
         (DISCOUNT, 'discount'),
         (CATEGORIES, 'categories'),
         (CLEAR, 'clear'),
-        (ADD, 'add')
+        (ADD, 'add'),
+        (FINISH, 'finish')
     )
     title = me.StringField(required=True, choices=TITLES_CONSTANTS, unique=True)
     body = me.StringField(min_length=4, max_length=4096)
+
+
+class Order(me.Document):
+    products = me.ListField(me.ReferenceField(Product))
 
 
 class User(me.Document):
@@ -93,7 +99,7 @@ class User(me.Document):
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()
-    order_history = me.StringField(min_length=4, max_length=4096)
+    order_history = me.ReferenceField(Order)
 
 
 class News(me.Document):

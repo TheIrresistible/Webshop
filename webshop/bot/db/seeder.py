@@ -28,11 +28,17 @@ def seed_texts():
         'body': 'Продукт добавлен в корзину.'
     }
 
+    finish = {
+        'title': 'finish',
+        'body': 'Заказ оформлен.'
+    }
+
     #Text.objects.create(**greetings)
     #Text.objects.create(**discount)
     #Text.objects.create(**categories)
-    Text.objects.create(**clear)
-    Text.objects.create(**add)
+    #Text.objects.create(**clear)
+    #Text.objects.create(**add)
+    Text.objects.create(**finish)
 
 
 def seed_news():

@@ -2,7 +2,7 @@ from telebot import types
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP, FINISH_LOOKUP, DELETE_LOOKUP
 from .keyboards import START_KB, ADD_TO_CART, FINISH, DELETE
-from .db.models import Category, Product, Text, News, Cart, User
+from .db.models import Category, Product, Text, News, Cart, User, Order
 from .service import WebShopBot
 
 API_TOKEN = TOKEN
@@ -69,6 +69,23 @@ def clear_cart(query):
         for cart in Cart.objects(customer=user):
             cart.delete()
             bot_instance.send_message(query.message.chat.id, txt)
+
+
+@bot_instance.callback_query_handler(func=lambda query: query.data.startswith(FINISH_LOOKUP))
+def finish_work(query):
+    txt = Text.objects.get(title=Text.FINISH).body
+    for user in User.objects(user_id=query.from_user.id):
+        print(user)
+        for cart in Cart.objects(customer=user):
+            print(cart)
+            Order.objects.create(products=cart.products)
+            for order in Order.objects(products=cart.products):
+                print(order)
+                user.order_history = order
+                user.save()
+            cart.delete()
+
+    bot_instance.send_message(query.message.chat.id, txt)
 
 
 @bot_instance.message_handler(commands=['help', 'start'])
