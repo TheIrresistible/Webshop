@@ -148,6 +148,7 @@ def show_cart(message):
 @bot_instance.message_handler(content_types=['text'], func=lambda m: m.text == START_KB['history'])
 def history_of_orders(message):
     list_of_products = []
+    summa = 0
     for u in User.objects(user_id=message.from_user.id):
         for order in Order.objects(customer=u):
             for product in order.products:
@@ -158,3 +159,6 @@ def history_of_orders(message):
             for product in list_of_products:
                 for p in Product.objects(id=product):
                     bot_instance.send_message(message.chat.id, f'{p.title}: {p.actual_price}')
+                    summa = summa + p.actual_price
+
+    bot_instance.send_message(message.chat.id, f'Общая сумма: {summa}')
