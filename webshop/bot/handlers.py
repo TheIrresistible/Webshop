@@ -75,14 +75,12 @@ def clear_cart(query):
 def finish_work(query):
     txt = Text.objects.get(title=Text.FINISH).body
     for user in User.objects(user_id=query.from_user.id):
-        print(user)
         for cart in Cart.objects(customer=user):
-            print(cart)
             Order.objects.create(products=cart.products)
             for order in Order.objects(products=cart.products):
-                print(order)
                 user.order_history = order
                 user.save()
+                print(user.order_history)
             cart.delete()
 
     bot_instance.send_message(query.message.chat.id, txt)
