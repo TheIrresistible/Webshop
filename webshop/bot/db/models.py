@@ -95,7 +95,6 @@ class User(me.Document):
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()
-    order_history = me.StringField()
 
 
 class News(me.Document):
