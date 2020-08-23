@@ -1,7 +1,8 @@
 from telebot import types
+from datetime import datetime
 from .config import TOKEN, DEFAULT
 from .lookups import SEPARATOR, PRODUCT_LOOKUP, CATEGORY_LOOKUP, FINISH_LOOKUP, DELETE_LOOKUP
-from .keyboards import START_KB, ADD_TO_CART, FINISH, DELETE
+from .keyboards import START_KB, FINISH, DELETE
 from .db.models import Category, Product, Text, News, Cart, User, Order
 from .service import WebShopBot
 
@@ -76,7 +77,7 @@ def finish_work(query):
     txt = Text.objects.get(title=Text.FINISH).body
     for user in User.objects(user_id=query.from_user.id):
         for cart in Cart.objects(customer=user):
-            Order.objects.create(customer=cart.customer, products=cart.products)
+            Order.objects.create(customer=cart.customer, products=cart.products, date=datetime.today())
             cart.delete()
 
     bot_instance.send_message(query.message.chat.id, txt)
@@ -142,3 +143,18 @@ def show_cart(message):
             summa = summa + p.actual_price
 
     bot_instance.send_message(message.chat.id, f'Общая сумма: {summa}', reply_markup=kb)
+
+
+@bot_instance.message_handler(content_types=['text'], func=lambda m: m.text == START_KB['history'])
+def history_of_orders(message):
+    list_of_products = []
+    for u in User.objects(user_id=message.from_user.id):
+        for order in Order.objects(customer=u):
+            for product in order.products:
+                list_of_products.append(product.id)
+            bot_instance.send_message(message.chat.id, f'Заказ №{order.id}\n'
+                                                       f'Дата: {order.date}\n'
+                                                       f'Товары:')
+            for product in list_of_products:
+                for p in Product.objects(id=product):
+                    bot_instance.send_message(message.chat.id, f'{p.title}: {p.actual_price}')

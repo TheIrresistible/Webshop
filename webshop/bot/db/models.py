@@ -114,6 +114,7 @@ class Cart(me.Document):
 class Order(me.Document):
     customer = me.ReferenceField(User)
     products = me.ListField(me.ReferenceField(Product))
+    date = me.DateTimeField()
 
 
 if __name__ == '__main__':
