@@ -153,8 +153,8 @@ def history_of_orders(message):
         for order in Order.objects(customer=u):
             for product in order.products:
                 list_of_products.append(product.id)
-            bot_instance.send_message(message.chat.id, f'Заказ №{order.id}\n'
-                                                       f'Дата: {order.date}\n'
+            bot_instance.send_message(message.chat.id, f'Заказ {order.id}\n'
+                                                       f'Время: {order.date}\n'
                                                        f'Товары:')
             for product in list_of_products:
                 for p in Product.objects(id=product):
