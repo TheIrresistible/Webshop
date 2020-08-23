@@ -80,7 +80,6 @@ def finish_work(query):
             for order in Order.objects(products=cart.products):
                 user.order_history = order
                 user.save()
-                print(user.order_history)
             cart.delete()
 
     bot_instance.send_message(query.message.chat.id, txt)

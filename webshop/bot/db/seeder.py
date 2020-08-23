@@ -1,4 +1,4 @@
-from .models import Text, News, Category, Product, Cart, User
+from .models import Text, News, Category, Product, Cart, User, Order
 
 
 def seed_texts():
@@ -38,7 +38,7 @@ def seed_texts():
     #Text.objects.create(**categories)
     #Text.objects.create(**clear)
     #Text.objects.create(**add)
-    Text.objects.create(**finish)
+    #Text.objects.create(**finish)
 
 
 def seed_news():
@@ -103,5 +103,10 @@ def seed_products():
             p.category = c
             p.discount = 10
             p.save()
+
+def show():
+    for user in User.objects():
+        for u in user:
+            print(u.order_history)
 
 

@@ -1,4 +1,4 @@
-from webshop.bot.db.seeder import seed_texts
+from webshop.bot.db.seeder import show
 
-seed_texts()
+show()
 
