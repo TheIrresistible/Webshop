@@ -88,10 +88,6 @@ class Text(me.Document):
     body = me.StringField(min_length=4, max_length=4096)
 
 
-class Order(me.Document):
-    products = me.ListField(me.ReferenceField(Product))
-
-
 class User(me.Document):
     user_id = me.IntField(required=True)
     first_name = me.StringField(required=True)
@@ -99,7 +95,6 @@ class User(me.Document):
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()
-    order_history = me.ListField(me.ReferenceField(Order))
 
 
 class News(me.Document):
@@ -114,6 +109,11 @@ class Cart(me.Document):
     def add_to_cart(self, product: 'Product'):
         self.products.append(product)
         self.save()
+
+
+class Order(me.Document):
+    customer = me.ReferenceField(User)
+    products = me.ListField(me.ReferenceField(Product))
 
 
 if __name__ == '__main__':
