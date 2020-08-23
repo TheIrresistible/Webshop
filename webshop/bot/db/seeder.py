@@ -106,7 +106,7 @@ def seed_products():
 
 
 def show():
-    for order in Order.objects():
-        print(order.products)
+    for user in User.objects():
+        print(user.order_history)
 
 
