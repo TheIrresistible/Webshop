@@ -78,7 +78,7 @@ def finish_work(query):
         for cart in Cart.objects(customer=user):
             Order.objects.create(products=cart.products)
             for order in Order.objects(products=cart.products):
-                user.order_history = order
+                user.order_history.append(order)
                 user.save()
             cart.delete()
 

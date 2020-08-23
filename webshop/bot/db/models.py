@@ -99,7 +99,7 @@ class User(me.Document):
     username = me.StringField(required=True)
     language_code = me.StringField(required=True)
     phone_number = me.IntField()
-    order_history = me.ReferenceField(Order)
+    order_history = me.ListField(me.ReferenceField(Order))
 
 
 class News(me.Document):

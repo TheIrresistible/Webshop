@@ -104,9 +104,9 @@ def seed_products():
             p.discount = 10
             p.save()
 
+
 def show():
     for user in User.objects():
-        for u in user:
-            print(u.order_history)
+        print(user.order_history)
 
 
