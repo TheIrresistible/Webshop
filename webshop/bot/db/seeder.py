@@ -106,7 +106,7 @@ def seed_products():
 
 
 def show():
-    for order in Order.objects():
-        order.delete()
+    for user in User.objects():
+        user.delete()
 
 
