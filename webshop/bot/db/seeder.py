@@ -107,6 +107,6 @@ def seed_products():
 
 def show():
     for user in User.objects():
-        print(user)
+        user.order_history.delete()
 
 
